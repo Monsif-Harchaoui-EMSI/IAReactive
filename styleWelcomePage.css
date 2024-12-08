@@ -1,0 +1,17 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevents scrolling due to canvas overflow */
+  height: 100%; /* Ensures the body fills the entire window */
+}
+
+body {
+  background-image: url('assets/mariobackground_upscaled.jpg');
+  background-size: cover; /* Ensures the image covers the entire page */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents image tiling */
+}
+
+canvas {
+  display: block;
+}
