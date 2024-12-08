@@ -7,11 +7,66 @@
   <script src="libraries/p5.min.js"></script>
   <script src="libraries/p5.sound.min.js"></script>
   <script src="obstacle.js"></script>
+  <script src="VehicleBanzai.js"></script>
   <script src="VehicleRoam.js"></script>
   <script src="sketchRoam.js"></script>
   <script src="path.js"></script>
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* To hide scrollbars for the canvas */
+      background-color: black; /* Retro background color */
+      font-family: 'Press Start 2P', cursive; /* Retro-style font */
+    }
+
+    /* Go Back Button */
+    .go-back-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #222;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-family: 'Press Start 2P', cursive;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .go-back-button:hover {
+      transform: scale(1.1);
+      background-color: #444;
+    }
+
+    .go-back-button .arrow {
+      margin-right: 10px;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(45deg);
+    }
   </style>
 </head>
 <body>
+  <!-- Retro-style Go Back Button -->
+  <div class="go-back-button" onclick="goBack()">
+    <span class="arrow"></span> Go Back
+  </div>
+
+  <script>
+    // Navigate back to the Welcome Page
+    function goBack() {
+      window.location.href = 'WelcomePage.html';
+    }
+  </script>
+</body>
 </html>
