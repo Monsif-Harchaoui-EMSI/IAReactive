@@ -56,19 +56,19 @@ function draw() {
   // Bowser logic: Chase the closest character
   let closestCharacter = getClosestCharacter();
   if (closestCharacter) {
-    // Bowser speeds up to chase the closest character
+    // Bowser speeds up pour chasser le plus proche character
     let seekForce = bowser.seek(closestCharacter.pos);
     seekForce.mult(1.5); // Increase Bowser's chase intensity
     bowser.applyForce(seekForce);
 
-    // Closest character increases speed to escape
+    // le plus proche character increases speed pour echapper
     closestCharacter.maxSpeed = 4; // Increase escape speed
     closestCharacter.fleeWithTargetRadius(bowser, 200);
   }
 
-  // Bowser movement and display
+  // Bowser movement et affichage
   bowser.wander();
-  bowser.edges(); // Keep Bowser within bounds
+  bowser.edges(); // Guarder Bowser within bounds
   bowser.update();
   bowser.show();
 
@@ -83,11 +83,6 @@ function draw() {
     character.show();
   });
 
-  // Draw Bowser's range of sight
-  noFill();
-  stroke("yellow");
-  ellipse(bowser.pos.x, bowser.pos.y, 400, 400); // Range of sight
-
   // Draw Mushroom cursor
   drawMushroomCursor();
 
@@ -95,7 +90,9 @@ function draw() {
 
 function getClosestCharacter() {
   let closest = null;
-  let minDistance = Infinity;
+  let minDistance = Infinity; 
+  // ici j'ai mis infinity puisque je veux bowser de suivre n'importe quel character 
+  //dans n'importe quel distance juste pour un bon affichage au niveau du welcome page
 
   characters.forEach((character) => {
     let distance = p5.Vector.dist(bowser.pos, character.pos);
@@ -110,7 +107,7 @@ function getClosestCharacter() {
 
 function drawMushroomCursor() {
   imageMode(CENTER);
-  image(mushroomImage, mouseX, mouseY, 50, 50); // Display mushroom as cursor
+  image(mushroomImage, mouseX, mouseY, 50, 50); 
   noCursor(); // Hide default cursor
 }
 
@@ -119,18 +116,8 @@ function windowResized() {
 }
 
 function mouseDragged() {
-  // Add new Mario character when mouse is dragged
+  // Ajout de new Mario character lorsqu'on drag la souris
   const b = new Vehicle(mouseX, mouseY, marioImage);
   b.r = random(80, 100);
   characters.push(b);
-}
-
-function keyPressed() {
-  if (key === '1') {
-    // Action for starting the game
-    console.log('Start game pressed!');
-  } else if (key === '2') {
-    // Action for displaying the guide
-    console.log('Guide option pressed!');
-  }
 }
