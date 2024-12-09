@@ -38,9 +38,8 @@ function creerDesVehicules(nb) {
 
 // Draw loop
 function draw() {
-  clear(); // No background since the HTML background is used
+  clear();
 
-  // Set target to mouse position
   target.x = mouseX;
   target.y = mouseY;
 
@@ -50,18 +49,27 @@ function draw() {
     switch (mode) {
       case "snake":
         if (index === 0) {
-          // Mario follows the mouse
           steeringForce = vehicle.arrive(target, 0);
         } else {
-          // Other vehicles follow the one in front
           let leader = vehicles[index - 1];
           let followDistance = 50; // Adjusted distance for better spacing
           steeringForce = vehicle.arrive(leader.pos, followDistance);
+        }
+        break;
 
-          // Connect vehicles visually
-          //stroke(255);
-          //strokeWeight(2);
-          //line(leader.pos.x, leader.pos.y, vehicle.pos.x, vehicle.pos.y);
+      case "leader":
+        if (index === 0) {
+          steeringForce = vehicle.arrive(target, 0);
+        } else {
+          let leader = vehicles[0];
+          let offset = calculateOffset(index, leader);
+          let desiredPosition = p5.Vector.add(leader.pos, offset);
+
+          if (p5.Vector.dist(vehicle.pos, leader.pos) < leader.r * 2) {
+            steeringForce = vehicle.flee(leader.pos);
+          } else {
+            steeringForce = vehicle.arrive(desiredPosition, 0);
+          }
         }
         break;
     }
@@ -72,11 +80,24 @@ function draw() {
   });
 }
 
-// Key controls for switching modes
+function calculateOffset(index, leader) {
+  let spacing = 60;
+  let row = floor((index - 1) / 3);
+  let col = (index - 1) % 3;
+
+  let angle = leader.vel.heading();
+  let xOffset = col * spacing * cos(angle) - row * spacing * sin(angle);
+  let yOffset = col * spacing * sin(angle) + row * spacing * cos(angle);
+
+  return createVector(xOffset, yOffset);
+}
+
 function keyPressed() {
   if (key === 'd') {
     gameVehicle.debug = !gameVehicle.debug;
   } else if (key === 's') {
     mode = "snake";
+  } else if (key === 'l') {
+    mode = "leader";
   }
 }

@@ -7,7 +7,7 @@ class gameVehicle {
     this.acc = createVector(0, 0);
     this.maxSpeed = 10;
     this.maxForce = 0.6;
-    this.r = 16;
+    this.r = 32;
     this.rayonZoneDeFreinage = 100;
     this.img = img;
   }
@@ -35,8 +35,12 @@ class gameVehicle {
     return this.seek(target, true, d);
   }
 
-  flee(target) {
-    // recopier code de flee de l'exemple précédent
+   flee(target) {
+    let desired = p5.Vector.sub(this.pos, target);
+    desired.setMag(this.maxSpeed);
+    let steer = p5.Vector.sub(desired, this.vel);
+    steer.limit(this.maxForce);
+    return steer;
   }
 
   // TODO : modifier pour ajouter un 3ème paramètre d
