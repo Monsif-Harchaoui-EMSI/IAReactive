@@ -15,16 +15,14 @@
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden; /* To hide scrollbars for the canvas */
-      background-color: black; /* Retro background color */
-      font-family: 'Press Start 2P', cursive; /* Retro-style font */
+      overflow: hidden;
+      background-color: black;
+      font-family: 'Press Start 2P', cursive;
     }
 
-    /* Go Back Button */
-    .go-back-button {
+    .go-back-button, .help-button {
       position: fixed;
       bottom: 20px;
-      left: 20px;
       background-color: #222;
       color: #fff;
       border: 2px solid #fff;
@@ -32,40 +30,76 @@
       padding: 10px 20px;
       font-size: 16px;
       font-family: 'Press Start 2P', cursive;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       cursor: pointer;
       transition: transform 0.3s, background-color 0.3s;
     }
 
-    .go-back-button:hover {
+    .go-back-button {
+      left: 20px;
+    }
+
+    .help-button {
+      right: 20px;
+    }
+
+    .go-back-button:hover, .help-button:hover {
       transform: scale(1.1);
       background-color: #444;
     }
 
-    .go-back-button .arrow {
-      margin-right: 10px;
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-left: 2px solid #fff;
-      border-bottom: 2px solid #fff;
-      transform: rotate(45deg);
+    .help-modal {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 300px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #fff;
+      border-radius: 10px;
+      font-family: 'Press Start 2P', cursive;
+      color: white;
+      font-size: 14px;
+      display: none;
+    }
+
+    .help-modal button {
+      margin-top: 10px;
+      width: 100%;
+      background-color: #444;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      padding: 10px;
+      font-family: 'Press Start 2P', cursive;
+      cursor: pointer;
+    }
+
+    .help-modal button:hover {
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-  <!-- Retro-style Go Back Button -->
-  <div class="go-back-button" onclick="goBack()">
-    <span class="arrow"></span> Go Back
+  <div class="go-back-button" onclick="goBack()">Go Back</div>
+  <div class="help-button" onclick="toggleHelp()">Help</div>
+  <div class="help-modal" id="helpModal">
+    <h4>Controls:</h4>
+    <ul>
+      <li><b>Mouse:</b> Move Player</li>
+      <li><b>Left Click:</b> Add Obstacles</li>
+      <li><b>Drag Mouse:</b> Add Birds</li>
+    </ul>
+    <button onclick="toggleHelp()">Close</button>
   </div>
 
   <script>
-    // Navigate back to the Welcome Page
     function goBack() {
       window.location.href = 'WelcomePage.html';
+    }
+
+    function toggleHelp() {
+      const modal = document.getElementById('helpModal');
+      modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
     }
   </script>
 </body>
